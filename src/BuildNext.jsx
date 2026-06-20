@@ -27,6 +27,7 @@ export default function BuildNext() {
   const [submitted, setSubmitted] = useState(false)
   const [ideas, setIdeas] = useState([])
   const [loading, setLoading] = useState(true)
+  const [fetchError, setFetchError] = useState(null)
   const [boardFilter, setBoardFilter] = useState('most-voted')
   const [newIdeaId, setNewIdeaId] = useState(null)
   const [votedIds, setVotedIds] = useState(() => {
@@ -38,12 +39,17 @@ export default function BuildNext() {
 
   async function fetchIdeas() {
     setLoading(true)
+    setFetchError(null)
     try {
       const res = await fetch(`${API_URL}?pageSize=100`, { headers: HEADERS })
       const data = await res.json()
+      if (!res.ok) {
+        setFetchError(`API error ${res.status}: ${data?.error?.message || JSON.stringify(data)}`)
+        return
+      }
       setIdeas(data.records || [])
     } catch (e) {
-      console.error('Failed to fetch ideas', e)
+      setFetchError(`Network error: ${e.message}`)
     } finally {
       setLoading(false)
     }
@@ -259,6 +265,8 @@ export default function BuildNext() {
 
         {loading ? (
           <p className={styles.loadingText}>Loading ideas...</p>
+        ) : fetchError ? (
+          <p className={styles.errorText}>{fetchError}</p>
         ) : displayedIdeas.length === 0 ? (
           <p className={styles.emptyText}>No ideas yet. Be the first to submit one above.</p>
         ) : (
