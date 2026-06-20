@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import styles from './App.module.css'
+import About from './About'
+import BuildNext from './BuildNext'
 
 const dashboards = [
   {
@@ -8,7 +10,7 @@ const dashboards = [
     description:
       'Live standings, match results, top scorers and group stage tracker for the 2026 FIFA World Cup',
     category: 'Sports',
-    link: 'https://worldcup-ochre.vercel.app',
+    link: 'https://worldcup.kaymetrics.com/',
     live: true,
   },
   {
@@ -109,7 +111,7 @@ function KayMetricsLogo({ className }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="KayMetrics — Built for Decisions, Not Decorations"
+      aria-label="KayMetrics: Built for Decisions, Not Decorations"
     >
       {/* K vertical bar */}
       <rect x="103" y="8" width="17" height="104" rx="3" fill="white" />
@@ -189,7 +191,14 @@ function DashboardCard({ dashboard }) {
 }
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState('home')
   const [activeFilter, setActiveFilter] = useState('All')
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  function goTo(page) {
+    setCurrentPage(page)
+    setMenuOpen(false)
+  }
 
   const visible =
     activeFilter === 'All'
@@ -200,44 +209,93 @@ export default function App() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <img src="/logos/kaymetrics-logo-fav.png" alt="KayMetrics" className={styles.headerIcon} />
+          <button className={styles.headerIconBtn} onClick={() => goTo('home')}>
+            <img src="/logos/kaymetrics-logo-fav.png" alt="KayMetrics home" className={styles.headerIcon} />
+          </button>
+
+          {/* Desktop nav */}
           <nav className={styles.nav}>
-            <a href="#" className={styles.navLink}>Services</a>
+            <button
+              className={`${styles.navLink} ${currentPage === 'about' ? styles.navLinkActive : ''}`}
+              onClick={() => setCurrentPage(currentPage === 'about' ? 'home' : 'about')}
+            >
+              About
+            </button>
             <a href="mailto:info@kaymetrics.com" className={styles.navLink}>Get in Touch</a>
-            <a href="#" className={styles.navLink}>FAQs</a>
+            <button
+              className={`${styles.navLink} ${currentPage === 'buildnext' ? styles.navLinkActive : ''}`}
+              onClick={() => setCurrentPage(currentPage === 'buildnext' ? 'home' : 'buildnext')}
+            >
+              What Should I Build Next?
+            </button>
           </nav>
+
+          {/* Hamburger — mobile only */}
+          <button
+            className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span className={styles.hLine} />
+            <span className={styles.hLine} />
+            <span className={styles.hLine} />
+          </button>
         </div>
+
         <HeartbeatLine />
+
+        {/* Mobile nav dropdown */}
+        {menuOpen && (
+          <nav className={styles.mobileNav}>
+            <button className={styles.mobileNavLink} onClick={() => goTo(currentPage === 'about' ? 'home' : 'about')}>
+              About
+            </button>
+            <a href="mailto:info@kaymetrics.com" className={styles.mobileNavLink} onClick={() => setMenuOpen(false)}>
+              Get in Touch
+            </a>
+            <button className={styles.mobileNavLink} onClick={() => goTo(currentPage === 'buildnext' ? 'home' : 'buildnext')}>
+              What Should I Build Next?
+            </button>
+          </nav>
+        )}
       </header>
 
-      <section className={styles.hero}>
-        <img
-          src="/logos/kms-logo.png"
-          alt="KayMetrics"
-          className={styles.heroLogo}
-        />
-        <p className={styles.heroSub}>Built for Decisions, Not Decorations</p>
-      </section>
+      {currentPage === 'about' ? (
+        <About />
+      ) : currentPage === 'buildnext' ? (
+        <BuildNext />
+      ) : (
+        <>
+          <section className={styles.hero}>
+            <img
+              src="/logos/kms-logo.png"
+              alt="KayMetrics"
+              className={styles.heroLogo}
+            />
+            <p className={styles.heroSub}>Built for Decisions, Not Decorations</p>
+          </section>
 
-      <main className={styles.main}>
-        <div className={styles.filterBar}>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`${styles.filterChip} ${activeFilter === cat ? styles.filterChipActive : ''}`}
-              onClick={() => setActiveFilter(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+          <main className={styles.main}>
+            <div className={styles.filterBar}>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  className={`${styles.filterChip} ${activeFilter === cat ? styles.filterChipActive : ''}`}
+                  onClick={() => setActiveFilter(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
 
-        <div className={styles.grid}>
-          {visible.map((d) => (
-            <DashboardCard key={d.id} dashboard={d} />
-          ))}
-        </div>
-      </main>
+            <div className={styles.grid}>
+              {visible.map((d) => (
+                <DashboardCard key={d.id} dashboard={d} />
+              ))}
+            </div>
+          </main>
+        </>
+      )}
 
       <footer className={styles.footer}>
         <p className={styles.footerCopy}>© 2026 KayMetrics</p>

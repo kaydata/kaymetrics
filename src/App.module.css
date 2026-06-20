@@ -35,6 +35,15 @@
   justify-content: space-between;
 }
 
+.headerIconBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 .headerIcon {
   height: 52px;
   width: 52px;
@@ -57,6 +66,18 @@
 
 .navLink:hover {
   color: #ffffff;
+}
+
+.navLinkActive {
+  color: #ffffff;
+}
+
+.nav button.navLink {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 /* ── Hero ── */
@@ -297,6 +318,69 @@
   height: 22px;
 }
 
+/* ── Hamburger ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.hLine {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #94a3b8;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburgerOpen .hLine:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburgerOpen .hLine:nth-child(2) { opacity: 0; }
+.hamburgerOpen .hLine:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile nav dropdown ── */
+.mobileNav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #0a1628;
+  border-bottom: 1px solid #1f3a6e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  padding: 4px 24px 8px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNavLink {
+  display: block;
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 0;
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(31, 58, 110, 0.4);
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.15s;
+  width: 100%;
+}
+
+.mobileNavLink:last-child { border-bottom: none; }
+.mobileNavLink:hover { color: #ffffff; }
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
   .grid {
@@ -304,22 +388,37 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
   .header {
-    padding: 20px 24px;
+    padding: 16px 24px 0;
+  }
+
+  .heartbeatLine {
+    width: calc(100% + 48px);
+    margin-left: -24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-top: 72px;
   }
 
   .hero {
-    padding: 52px 24px 44px;
-  }
-
-  .heroHeading {
-    font-size: 36px;
-    letter-spacing: -1px;
+    padding: 8px 24px 20px;
   }
 
   .heroSub {
-    font-size: 17px;
+    font-size: 30px;
+    letter-spacing: -0.8px;
   }
 
   .main {

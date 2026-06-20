@@ -1,0 +1,136 @@
+.page {
+  flex: 1;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 56px 48px 40px;
+  border-bottom: 1px solid #1f3a6e;
+}
+
+.heroHeading {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.metricsBlue {
+  color: #3b82f6;
+}
+
+/* ── Content ── */
+.content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 48px 80px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionHeading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.body {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.body strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.divider {
+  height: 1px;
+  background: #1f3a6e;
+  margin: 40px 0;
+}
+
+/* ── Founder section ── */
+.founderSection {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.founderText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.founderPhotoWrap {
+  flex-shrink: 0;
+}
+
+.founderPhoto {
+  width: 200px;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #1f3a6e;
+  display: block;
+}
+
+/* ── Closing tagline ── */
+.closing {
+  font-size: 15px;
+  font-style: italic;
+  color: #64748b;
+  text-align: center;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero {
+    padding: 48px 32px 32px;
+  }
+
+  .content {
+    padding: 48px 32px 72px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 36px 20px 28px;
+  }
+
+  .heroHeading {
+    font-size: 32px;
+    letter-spacing: -0.8px;
+  }
+
+  .content {
+    padding: 36px 20px 56px;
+  }
+
+  .founderSection {
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+
+  .founderPhoto {
+    width: 130px;
+  }
+
+  .body {
+    font-size: 15px;
+  }
+}
