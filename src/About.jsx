@@ -85,7 +85,7 @@ export default function About() {
 
         <div className={styles.divider} />
 
-        <p className={styles.closing}>Built for Decisions, Not Decoration.</p>
+        <p className={styles.closing}>Built for Decisions, Not Decorations.</p>
 
       </div>
     </div>
