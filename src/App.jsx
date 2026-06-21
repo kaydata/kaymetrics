@@ -208,6 +208,7 @@ export default function App() {
 
   return (
     <div className={styles.page}>
+      <Analytics />
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <button className={styles.headerIconBtn} onClick={() => goTo('home')}>
