@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import styles from './App.module.css'
 import About from './About'
 import BuildNext from './BuildNext'
@@ -324,6 +325,7 @@ export default function App() {
           </a>
         </div>
       </footer>
+      <Analytics />
     </div>
   )
 }
